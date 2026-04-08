@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis XV - Lara</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="music-consent" id="music-consent">
+        <div class="music-consent-card">
+            <p>Para ofrecer la mejor experiencia, selecciona si deseas activar la música de época.</p>
+            <div class="music-consent-actions">
+                <button id="btn-music-consent" class="btn-primary">Reproducir música</button>
+                <button id="btn-close-consent" class="btn-secondary">No, gracias</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="welcome-screen" id="welcome-screen">
+        <div class="insignia-contenedor">
+            <img src="assets/logo-invitacion.webp" alt="Insignia" class="insignia-base">
+            
+            <img src="assets/silueta-invitacion.webp" alt="Silueta" class="insignia-silueta">
+        </div>
+        <div class="envelope-container">
+            <div class="envelope">
+                <div class="envelope-flap"></div>
+                <div class="envelope-body"></div>
+                <div class="envelope-seal" id="envelope-seal">L</div>
+            </div>
+            <p class="welcome-text">Presiona para abrir la invitación</p>
+        </div>
+    </div>
+
+    <main class="page-content" id="main-content" style="display: none;">
+        <section class="section-hero" id="inicio">
+            <div class="hero-overlay"></div>
+            
+            <img src="assets/cabecera-invitacion.webp" alt="Flores" class="hero-garland">
+            
+            <div class="hero-content">
+                <img src="assets/silueta.webp" alt="Lady Whistledown" class="hero-logo">
+                <p class="hero-label">Mi noche soñada</p>
+                <h1 class="hero-title">Lara</h1>
+                <a href="#invitacion" class="hero-cta">Ver invitación</a>
+            </div>
+        </section>
+
+        <section class="section-card section-invitation" id="invitacion">
+
+            <div class="textos-invitacion">
+                <h1 class="estimado-lector">Estimado lector:</h1>
+                <p class="cuerpo-carta">Me complace informarle que está invitado a ser testigo de un acontecimiento sin igual. Mientras algunos se conforman con lo ordinario, los Gutierrez Cuettí han decidido que los XV años de la señorita Lara sean la definición misma de perfección.</p>
+                <p class="atrevera">¿Se atreverá usted a faltar y ser el único que no conozca los secretos de la noche?</p>
+                <div class="firma-mensaje">
+                    <h2 class="firma">Sinceramente suya,</h2>
+                    <h2 class="firma-nombre">Lady Whistledown</h2>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-card section-date" id="fecha">
+            <div class="section-header">
+                <h2>Fecha del evento</h2>
+            </div>
+            <div class="fecha-grid">
+
+            <div class="contenedor-pergamino">
+                <img src="assets/cabecera-fecha.webp" alt="Pergamino" class="img-fecha">
+                
+                <svg class="fecha-arco" viewBox="0 0 400 120"> <path id="curva-pergamino-profunda" fill="transparent" d="M 40,80 Q 200,20 360,80" />
+                    
+                    <text>
+                        <textPath href="#curva-pergamino-profunda" startOffset="50%" text-anchor="middle">
+                            20-02-2027
+                        </textPath>
+                    </text>
+                </svg>
+            </div>
+                <div class="contador-container">
+                    <div class="tiempo"><span id="dias">00</span><p>DÍAS</p></div>
+                    <div class="separador">:</div>
+                    <div class="tiempo"><span id="horas">00</span><p>HORAS</p></div>
+                    <div class="separador">:</div>
+                    <div class="tiempo"><span id="minutos">00</span><p>MINUTOS</p></div>
+                    <div class="separador">:</div>
+                    <div class="tiempo"><span id="segundos">00</span><p>SEGUNDOS</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-card section-details" id="detalles">
+            <div class="info-evento-alineada">
+                
+                <p class="detalle-linea">
+                    <span class="detalle-etiqueta">Salón:</span> Don Ignacio, Av. Rancagua 8400
+                </p>
+                
+                <p class="detalle-linea">
+                    <span class="detalle-etiqueta">Horario:</span> 21:30 hs
+                </p>
+                
+                <div class="boton-mapa-detalle">
+                    <a href="https://www.google.com/maps/place/Don+Ignacio/@-31.331517,-64.1474226,17z/data=!3m1!4b1!4m6!3m5!1s0x9432975873d00099:0x805d6dce8e200dd6!8m2!3d-31.331517!4d-64.1474226!16s%2Fg%2F11csb2jykc?entry=ttu&g_ep=EgoyMDI2MDQwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank">
+                        <img src="assets/imagen_circular_recortada.png" alt="Ubicación">
+                        <span>Ver en el mapa</span>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="section-card section-payment" id="pagos">
+            <div class="section-header">
+                <h2>Reserva tu lugar</h2>
+            </div>
+            
+            <div class="info-evento-alineada">
+                <p class="detalle-linea">
+                    <span class="etiqueta-precio">Adultos (+18):</span> $70.000
+                </p>
+                <p class="detalle-linea">
+                    <span class="etiqueta-precio">Adolescentes (15 a 17):</span> $30.000
+                </p>
+                <p class="detalle-linea">
+                    <span class="etiqueta-precio">Niños (3 a 14):</span> $15.000
+                </p>
+
+                <p class="cuerpo-carta" style="margin-top: 10px; font-size: 1.2rem;">
+                    Aceptamos efectivo en el salón, transferencia bancaria, Mercado Pago o PayPal. 
+                    Contamos con opciones de financiación mensual a tu medida.
+                </p>
+                <p class="cuerpo-carta" style="font-size: 1.1rem; color: #8b7b8f;">
+                    <strong>Importante:</strong> La tarjeta debe estar abonada en su totalidad antes del 5 de febrero de 2027.
+                </p>
+
+                <div class="boton-mapa-detalle" style="margin-top: 25px; justify-content: center;">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdPQjIOvGZQS0xId2vHtLn0TxYktoZ8rT-NR_ooE2R0JVwFeg/viewform" target="_blank">
+                        <img src="assets/fecha.webp" alt="Confirmar" class="img-circular-boton" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover;">
+                        <span>Confirmar asistencia</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="section-card section-interactive" id="interactua">
+            <div class="section-header">
+                <h2 style="font-size: 3rem;">La Playlist de Lara</h2>
+            </div>
+            <div class="textos-invitacion" style="text-align: center;">
+                <p class="cuerpo-carta" style="font-size: 1.2rem; margin-bottom: 20px;">
+                    Ayúdanos a armar la lista de reproducción perfecta. ¿Qué canción crees que no puede faltar para que la pista explote?
+                </p>
+                
+                <div class="boton-mapa-detalle" style="justify-content: center;">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfQiiSg7J7IZ7-K7Rhhu-JyFtbJZQlV3EfY33LjtN4xpMIOMw/viewform" target="_blank" style="background: #8b7b8f; border-color: #8b7b8f;">
+                        <span style="color: white;">Sugerir canciones 🎵</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section class="section-card section-album" id="compartir-fotos">
+            <div class="section-header">
+                <h2 style="font-size: 3rem;">Nuestros recuerdos</h2>
+            </div>
+            
+            <div class="textos-invitacion" style="text-align: center;">
+                <p class="cuerpo-carta" style="font-size: 1.25rem; margin-bottom: 25px; line-height: 1.6;">
+                    ¡Queremos capturar cada sonrisa y cada baile! Por favor, ayúdanos a llenar este álbum compartiendo todas las fotos y videos que tomes durante la noche soñada de Lara.
+                </p>
+
+                <div class="boton-cta-album">
+                    <a href="https://drive.google.com/drive/folders/1sli2XidrS0zhXuEkL6571k944auKGlbc?usp=drive_link" target="_blank">
+                        <img src="assets/silueta.webp" alt="Flores" class="img-circular-boton" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.5);">
+                        <span>Subir mis fotos 📸</span>
+                    </a>
+                </div>
+
+                <p class="cuerpo-carta" style="font-size: 0.9rem; color: #6d6470; margin-top: 30px; font-style: normal; opacity: 0.8;">
+                    (No necesitas descargarte ninguna app, puedes subir las fotos directamente desde el navegador de tu celular)
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <audio id="musica-fondo" loop preload="none">
+        <source src="assets/musica-epoca.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="btn-musica" class="btn-flotante" aria-label="Control de música">🎵 Reproducir Música</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

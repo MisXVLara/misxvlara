@@ -1,0 +1,969 @@
+﻿/* --- Carga de Fuentes Locales --- */
+@font-face {
+    font-family: 'RhymeTH';
+    src: url('assets/fonts/RhymeTH.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'EyesomeScript';
+    src: url('assets/fonts/EyesomeScript.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* --- Reset Básico --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: url('assets/fondo-invitación.png') center / cover fixed;
+    background-color: #f5e7d2;
+    color: #3b2c24;
+    font-family: 'Playfair Display', serif;
+    padding-bottom: 80px; /* Asegura que el contenido final nunca quede tapado por el botón flotante */
+}
+
+body, button, a {
+    font-family: inherit;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+button, a {
+    cursor: pointer;
+}
+
+/* 1. El contenedor principal: solo centra el contenido y da color crema de fondo */
+.welcome-screen {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5e7d2; /* Fondo crema limpio */
+    z-index: 300;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* 2. El contenedor de la insignia: controla el tamaño de toda la unidad y el apilado */
+.insignia-contenedor {
+    position: relative; /* Necesario para que la silueta se posicione relativa a este div */
+    /* Define un tamaño controlado para la insignia para que no se vea gigante */
+    width: min(300px, 90%); /* Ajusta este número (ej: 250px-400px) para el tamaño general de la insignia */
+    height: auto;
+    margin-bottom: 50px; /* Espacio debajo de la insignia */
+}
+
+/* 3. La insignia base (el escudo/forma) */
+.insignia-base {
+    display: block;
+    width: 100%; /* Ocupa todo el ancho de .insignia-contenedor */
+    height: auto;
+}
+
+/* 4. La silueta (la dama de perfil) apilada SOBRE la base */
+.insignia-silueta {
+    position: absolute;
+    /* CENTRADO PERFECTO DENTRO DE LA INSIGNIA BASE */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    /* CONTROL DE TAMAÑO RELATIVO */
+    /* Ajusta este porcentaje para que la silueta encaje perfectamente DENTRO de la forma de escudo de la base */
+    width: 60%; /* Ej: si el escudo es ancho, usa 50%-65%. Si es estrecho, usa más. */
+    height: auto;
+}
+
+/* Mantén tu clase .hidden igual */
+.welcome-screen.hidden {
+    opacity: 0;
+    transform: scale(0.9);
+    pointer-events: none;
+}
+
+.envelope-container {
+    text-align: center;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.envelope {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    margin: 0 auto 20px;
+    background: #f5e7d2;
+    border: 2px solid #8b7b8f;
+    border-radius: 10px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.envelope:hover {
+    transform: scale(1.05);
+}
+
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: #e4ceb5;
+    border-bottom: 2px solid #8b7b8f;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transition: transform 0.6s ease;
+}
+
+.envelope.open .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+.envelope-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: #f5e7d2;
+}
+
+.envelope-seal {
+    position: absolute;
+    top: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+    background: #8b7b8f;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.envelope-seal:hover {
+    background-color: #6d6470;
+}
+
+.seal-text {
+    pointer-events: none;
+}
+
+.welcome-text {
+    color: #5d3a2a;
+    font-family: 'RhymeTH', serif;
+    font-size: 1.2rem;
+    margin-top: 20px;
+}
+
+/* --- Contenido principal --- */
+.page-content {
+    padding-top: 0;
+    width: min(1180px, 100%);
+    margin: 0 auto;
+}
+
+.section-hero {
+    position: relative;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 100px 20px;
+    color: #3b2c24;
+    background: transparent;
+    overflow: hidden;
+}
+
+.section-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(245,231,210,0.88), rgba(228,206,181,0.92));
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    display: grid;
+    gap: 16px;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+    will-change: opacity, transform;
+    padding-top: 140px;
+}
+
+.hero-content.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section-card {
+    background: rgba(255, 250, 242, 0.88);
+    border: 1px solid rgba(91, 61, 45, 0.15);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
+    border-radius: 28px;
+    margin: 60px 20px;
+    padding: 42px 36px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+    will-change: opacity, transform;
+}
+
+.section-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section-card::before {
+    display: none;
+}
+
+.hero-logo {
+    width: 290px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-label {
+    font-family: 'RhymeTH', serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #5d3a2a;
+    font-weight: 850;
+    font-style: italic;
+}
+
+.hero-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    margin: 0;
+    line-height: 1;
+    color: #5d3a2a;
+}
+
+.hero-copy {
+    font-family: 'RhymeTH', serif;
+    font-size: clamp(1.3rem, 2vw, 1.9rem);
+    line-height: 1.8;
+    max-width: 900px;
+    margin: 0 auto;
+    color: #3b2c24;
+    font-weight: 500;
+}
+
+.hero-cta {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 16px 40px;
+    border-radius: 999px;
+    background-color: #8b7b8f;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-family: 'RhymeTH', serif;
+    font-size: 1.1rem;
+    transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.hero-cta:hover {
+    transform: translateY(-2px);
+    background-color: #6d6470;
+}
+
+
+.section-card::before {
+    display: none;
+}
+
+.section-header {
+    display: block;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 12px;
+    font-family: 'Great Vibes', cursive;
+    color: #5d3a2a;
+    font-size: clamp(2.8rem, 4vw, 3.8rem);
+    font-weight: normal;
+    margin: 0;
+}
+
+.textos-invitacion {
+    display: grid;
+    gap: 24px;
+}
+
+.textos-invitacion ul {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.textos-invitacion li {
+    margin-bottom: 8px;
+}
+
+.estimado-lector {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(3.2rem, 6vw, 5.2rem);
+    color: #5d3a2a;
+    margin: 0 0 16px 0;
+    font-weight: normal;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.cuerpo-carta,
+.atrevera,
+.section-copy,
+.info-item p {
+    font-family: 'RhymeTH', serif;
+    font-size: clamp(1.6rem, 2.4vw, 2.4rem);
+    line-height: 1.8;
+    color: #5d3a2a;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.firma-mensaje {
+    display: grid;
+    gap: 8px;
+    justify-items: center;
+    margin-top: 20px;
+}
+
+.firma,
+.firma-nombre {
+    font-family: 'Great Vibes', cursive;
+    color: #5d3a2a;
+    margin: 0;
+    font-weight: normal;
+}
+
+.firma {
+    font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+}
+
+.firma-nombre {
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+}
+
+.fecha-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px;
+    align-items: center;
+}
+
+.contenedor-pergamino {
+    position: relative;
+    display: grid;
+    place-items: center;
+    margin-bottom: 25px; /* Agregamos espacio debajo del pergamino */    
+}
+
+.img-fecha {
+    width: 100%;
+    max-width: 360px;
+}
+
+.fecha-arco {
+    position: absolute;
+    top: 65%; /* Ajuste para alinear con la curvatura hacia abajo */
+    left: 52%;
+    transform: translate(-50%, -50%);
+    width: 70%; /* Ajuste del ancho para encajar en el pergamino */
+    z-index: 2;
+}
+
+.fecha-arco text {
+    font-family: 'EyesomeScript', cursive; /* Asegúrate de que esta fuente esté cargada con @font-face */
+    font-size: 30px; /* Tamaño de fuente fijo para SVG */
+    fill: #1a1a1a;
+    letter-spacing: 1px; /* Un poco de espacio para legibilidad en la curva */
+}
+
+.contador-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    background-color: #8b7b8f;
+    color: white;
+    border-radius: 50px;
+    padding: 20px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+}
+
+.tiempo {
+    text-align: center;
+    min-width: 68px;
+}
+
+.tiempo span {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.tiempo p {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    margin-top: 6px;
+}
+
+.separador {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.88);
+}
+
+.info-evento {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.info-item {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.info-item h3 {
+    margin-bottom: 12px;
+    font-size: 1.5rem;
+    color: #5d3a2a;
+    font-family: 'Great Vibes', cursive;
+    font-weight: normal;
+}
+
+.info-item p {
+    margin: 0;
+}
+
+.section-copy {
+    margin-bottom: 24px;
+    max-width: 720px;
+}
+
+.botones-accion {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    align-items: start;
+}
+
+.boton-item {
+    display: grid;
+    gap: 14px;
+    justify-items: center;
+}
+
+.boton-item a {
+    display: inline-flex;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.14);
+}
+
+.boton-item img {
+    width: 100px;
+    transition: transform 0.3s ease;
+}
+
+.boton-item:hover img {
+    transform: scale(1.05);
+}
+
+.texto-botones {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #4a3b32;
+}
+
+.programa-contenido {
+    display: grid;
+    gap: 20px;
+}
+
+.programa-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding-bottom: 16px;
+    border-bottom: 1px dotted rgba(91, 61, 45, 0.3);
+}
+
+.programa-item:last-child {
+    border-bottom: none;
+}
+
+.hora-programa {
+    font-family: 'EyesomeScript', cursive;
+    font-size: 1.6rem;
+    color: #5d3a2a;
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+.programa-item p {
+    margin: 0;
+    font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+    color: #3b2c24;
+}
+
+.precios-contenido {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.precio-item {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(91, 61, 45, 0.2);
+    border-radius: 12px;
+}
+
+.precio-item h3 {
+    margin-bottom: 12px;
+    font-size: 1.5rem;
+    color: #5d3a2a;
+    font-family: 'Great Vibes', cursive;
+    font-weight: normal;
+}
+
+.precio {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #8b7b8f;
+    font-family: 'RhymeTH', serif;
+}
+
+.music-consent {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: rgba(10,10,10,0.72);
+    z-index: 250;
+    padding: 20px;
+}
+
+.music-consent.hidden {
+    display: none;
+}
+
+.music-consent-card {
+    background: #f5e7d2;
+    border-radius: 28px;
+    padding: 30px;
+    width: min(450px, 100%);
+    text-align: center;
+    box-shadow: 0 28px 60px rgba(0,0,0,0.22);
+}
+
+.music-consent-card p {
+    margin-bottom: 22px;
+    line-height: 1.7;
+    color: #3b2c24;
+    font-family: 'RhymeTH', serif;
+    font-size: 1.1rem;
+}
+
+.music-consent-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+    border: none;
+    border-radius: 999px;
+    padding: 14px 24px;
+    font-weight: 700;
+}
+
+.btn-primary {
+    background: #8b7b8f;
+    color: #fff;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #5d3a2a;
+    border: 1px solid rgba(93, 58, 42, 0.3);
+}
+
+.btn-flotante {
+    position: fixed;
+    bottom: 22px;
+    right: 22px;
+    background-color: #8b7b8f;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0px 6px 16px rgba(0,0,0,0.2);
+    z-index: 200;
+    transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.btn-flotante:hover {
+    background-color: #6d6470;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 940px) {
+    .info-evento,
+    .botones-accion,
+    .fecha-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-card {
+        margin: 20px 16px 50px 16px; 
+        padding: 34px 24px;
+    }
+}
+
+@media (max-width: 680px) {
+    .hero-copy {
+        font-size: 1rem;
+    }
+
+    .section-header h2 {
+        display: block;
+        margin-bottom: 20px;
+        text-align: center; /* Esta es la propiedad clave */
+    }
+
+    .cuerpo-carta,
+    .atrevera,
+    .section-copy,
+    .info-item p {
+        font-size: 1.1rem;
+    }
+
+    .botones-accion {
+        gap: 18px;
+    }
+
+    /* 1. Forzamos el contador a una sola línea y reducimos espacios */
+    .contador-container {
+        flex-wrap: nowrap; /* Evita que los segundos caigan a otra línea */
+        padding: 16px 10px; /* Reducimos el relleno lateral */
+        gap: 6px; /* Reducimos la separación entre números y los dos puntos */
+        border-radius: 25px; /* Un borde un poco más suave para pantallas chicas */
+    }
+
+    /* 2. Achicamos las cajas de cada bloque de tiempo */
+    .tiempo {
+        min-width: 45px; /* Permite que las cajas se encojan */
+    }
+
+    /* 3. Reducimos el tamaño de la tipografía para que encaje todo */
+    .tiempo span {
+        font-size: 1.4rem; /* Números más chicos (original 2rem) */
+    }
+
+    .tiempo p {
+        font-size: 0.65rem; /* Texto de "Días", "Horas" más sutil */
+        margin-top: 4px;
+    }
+
+    .separador {
+        font-size: 1.4rem; /* Achicamos los dos puntos para que coincidan con los números */
+        color: rgba(255,255,255,0.6); /* Hacemos los dos puntos un poco más transparentes para que no pesen tanto visualmente */
+    }
+    
+    /* 4. Opcional: Ajuste del pergamino si lo ves muy apretado */
+    .img-fecha {
+        max-width: 90%; /* Evita que el pergamino toque los bordes del celular */
+    }
+    .section-card {
+        margin: 20px 16px 60px 16px; /* Mantiene la separación entre tarjetas */
+        padding: 50px 24px; /* AUMENTAMOS el relleno superior e inferior (antes era 34px) */
+        min-height: 60vh; /* TRUCO: Fuerza a que cada tarjeta ocupe al menos el 60% de la pantalla del celular, haciéndolas sentir como bloques completos */
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Centra el contenido verticalmente si la tarjeta es muy alta */
+    }
+/* 1. Ajuste de tamaño y posición de la curva de la fecha */
+    .fecha-arco {
+        width: 85%; /* Aumenta el tamaño general de la curva y el texto para que llene el pergamino */
+        top: 60%; /* Ajusta este valor (prueba 50% o 54%) para subirlo/bajarlo hasta el centro exacto de la cinta */
+        left: 53%; /* Corrige el descentrado (antes tenías 52%) */
+    }
+
+    /* 2. Ajuste de tipografía y tamaño de los números */
+    .fecha-arco text {
+        /* Cambiamos a RhymeTH o Playfair Display para que haga juego perfecto con el resto de la invitación */
+        font-family: 'RhymeTH', 'Playfair Display', serif !important; 
+        font-size: 38px; /* Aumentamos el tamaño interno de los números */
+        font-weight: 700; /* Le damos un poco más de grosor para que resalte */
+        fill: #4a3b32; /* Un tono marrón oscuro elegante, en lugar del negro puro */
+    }
+
+}
+
+
+
+
+.hero-garland {
+    position: absolute;
+    /* Si notas que queda espacio vacío arriba de las flores, prueba con top: -20px; */
+    top: -30px; 
+    left: 0;
+    width: 100%;
+    
+    /* 1. Reducimos el alto para que la cabecera sea más fina y no invada tanto */
+    height: 280px; 
+    
+    object-fit: cover; 
+    object-position: top center; 
+    z-index: 0;
+    opacity: 0.92;
+    pointer-events: none;
+
+    /* 2. EL TRUCO DE MAGIA: Borra la línea recta inferior haciendo que las flores se desvanezcan hacia el fondo */
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+}
+
+/* --- Estilos específicos para Detalles del Evento --- */
+.section-details .info-evento {
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* Quitamos el espacio gigante del grid original */
+}
+
+.section-details .info-item {
+    padding: 24px 0; /* Espaciado interno balanceado */
+    border-bottom: 1px dashed rgba(93, 58, 42, 0.2); /* Línea divisoria sutil */
+    display: flex;
+    flex-direction: column;
+    gap: 6px; /* Acerca un poco más el título cursivo al texto */
+}
+
+/* Quitamos la línea al último elemento para mantener el diseño limpio */
+.section-details .info-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.section-details .info-item h3 {
+    margin-bottom: 0;
+    font-size: 1.8rem; /* Ligeramente más grande para compensar la falta de título general */
+}
+
+.section-details .info-item p {
+    font-family: 'RhymeTH', serif;
+    font-size: 1.25rem;
+    color: #3b2c24;
+}
+
+
+
+/* --- Nuevo diseño: Detalles del Evento alineados --- */
+.info-evento-alineada {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    text-align: left; /* Alineamos todo a la izquierda */
+}
+
+.detalle-linea {
+    font-family: 'RhymeTH', serif;
+    font-size: 1.3rem; /* Tamaño de lectura cómodo */
+    color: #3b2c24;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.detalle-etiqueta {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2rem; /* La cursiva un poco más grande para contrastar */
+    color: #5d3a2a;
+    margin-right: 10px;
+}
+
+/* --- Botón del mapa integrado --- */
+.boton-mapa-detalle {
+    margin-top: 45px;
+    display: flex;
+    justify-content: center; 
+}
+
+.boton-mapa-detalle a {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    background: rgba(139, 123, 143, 0.1); /* Un fondo sutil morado */
+    padding: 8px 20px;
+    border-radius: 50px;
+    border: 1px solid rgba(139, 123, 143, 0.3);
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.boton-mapa-detalle a:hover {
+    transform: scale(1.02);
+    background: rgba(139, 123, 143, 0.2);
+}
+
+.boton-mapa-detalle img {
+    width: 55px; /* Ícono más pequeño para no desentonar */
+}
+
+.boton-mapa-detalle span {
+    font-family: 'RhymeTH', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #4a3b32;
+}
+
+.etiqueta-precio {
+    font-family: 'RhymeTH', serif;
+    font-size: 1.3rem; /* Mismo tamaño base que el texto normal */
+    font-weight: 800; /* Lo hacemos bien negrita para que resalte la categoría */
+    color: #5d3a2a;
+    margin-right: 8px;
+}
+
+.formulario-cancion {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.input-elegante {
+    padding: 15px 20px;
+    border-radius: 25px;
+    border: 1px solid rgba(139, 123, 143, 0.4);
+    background: rgba(255, 255, 255, 0.6);
+    font-family: 'RhymeTH', serif;
+    font-size: 1.1rem;
+    color: #4a3b32;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.input-elegante:focus {
+    border-color: #8b7b8f;
+    background: #fff;
+}
+
+.btn-sugerir {
+    padding: 15px 30px;
+    border-radius: 25px;
+    border: none;
+    background: #8b7b8f;
+    color: #fff;
+    font-family: 'RhymeTH', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.btn-sugerir:hover {
+    transform: translateY(-2px);
+    background: #6d6470;
+}
+
+/* --- Estilos para la sección Álbum Compartido --- */
+.section-album {
+    background: rgba(255, 250, 242, 0.88) !important;
+    opacity: 1 !important; /* Asegurar visibilidad */
+    transform: translateY(0) !important;
+}
+
+.boton-cta-album {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.boton-cta-album a {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    
+    /* Fondo morado principal de tu paleta */
+    background: #8b7b8f; 
+    padding: 12px 30px;
+    border-radius: 50px; /* Estilo píldora */
+    
+    /* Sombra para efecto premium */
+    box-shadow: 0 8px 16px rgba(139, 123, 143, 0.2);
+    
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.boton-cta-album a:hover {
+    transform: scale(1.05);
+    background: #6d6470; /* Color un poco más oscuro al pasar el mouse */
+}
+
+.boton-cta-album span {
+    font-family: 'RhymeTH', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    
+    /* Texto blanco para contraste */
+    color: #ffffff; 
+}
